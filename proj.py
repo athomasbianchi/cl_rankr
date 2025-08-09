@@ -16,7 +16,7 @@ replacement_level = replacement_players['PTS'].mean()
 
 qbs['VORP'] = qbs['PTS'] - replacement_level
 
-elo_values = list(range(1200 + replacement_spot, 1200 + replacement_spot - len(qbs), -1))
+elo_values = list(range(1300, 1300 - (len(qbs) * 10), -10))
 qbs['ELO'] = elo_values
 print(qbs.head(20))
 
