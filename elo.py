@@ -1,6 +1,8 @@
 import pandas as pd
 import random
 
+POS = 'wr'
+
 def calculate_elo_change(player_rating, opponent_rating,actual_score):
     # Calculate expected score
     expected_score = 1 / (1 + 10**((opponent_rating - player_rating) / 400))
@@ -11,15 +13,15 @@ def calculate_elo_change(player_rating, opponent_rating,actual_score):
     return rating_change
 
 def main():
-  qbs = pd.read_csv('./qbs.csv', index_col=0)
+  qbs = pd.read_csv(f'./{POS}.csv', index_col=0)
   elo_i = qbs.columns.get_loc('ELO')
   ranking = True
   count = 0
   while ranking:
     print('Ranks Count: ', count)
-    range = random.randint(1,7)
-    i = random.randint(0,range*6)
-    j = i + random.randint(1,3)
+    range = random.randint(1,10)
+    i = random.randint(0,range*8)
+    j = i + random.randint(1,5)
     qbs = qbs.sort_values(by=['ELO', 'VORP'], ascending=[False, False]).reset_index(drop=True)
 
     i_rating = qbs.iloc[i]['ELO']
@@ -50,5 +52,5 @@ def main():
       count += 1
     if resp == 'x':
       ranking = False
-      qbs.to_csv('qbs.csv')
+      qbs.to_csv(f'{POS}.csv')
 main()
